@@ -12,8 +12,12 @@ runs:
   using: "composite"
 
   steps:
-    - name: Install wireguard
-      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
-      shell: bash
-      env:
-        GITHUB_ACTION_PATH: ${{ github.action_path }}
+    - name: Setup wireguard
+
+    - run: sudo apt install wireguard resolvconf iptables
+
+    - run: echo "${{ secrets.WG_CONF }}" > ~/wg0.conf
+
+    - run: sudo mv ~/wg0.conf /etc/wireguard/wg0.conf
+
+    - run: sudo wg-quick up wg0
