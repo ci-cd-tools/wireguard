@@ -1,0 +1,19 @@
+name: Wireguard setup
+author: nastradamus39
+description: Install and setup vpn via wireguard.
+
+inputs:
+  client_config:
+    description: client vpn config
+    required: true
+    default: false
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: Install wireguard
+      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
+      shell: bash
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
